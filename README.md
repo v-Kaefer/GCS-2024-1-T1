@@ -1,7 +1,7 @@
 # GCS-2024-1-T1
 Repositório destinado ao Trabalho 1 de Gerenciamento e Configuração de Software (GCS)
 
-[![CC BY-ND 4.0][cc-by-nd-shield]][cc-by-nd]
+ [![CC BY-ND 4.0][cc-by-nd-shield]][cc-by-nd]
 
 ## To-Do List Imediata
 - [ ] Remover Renovate Bot
