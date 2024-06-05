@@ -1,0 +1,32 @@
+name: Commits para a main somente a partir da development
+
+on:
+    push:
+        branches:
+            - development
+
+jobs:
+    commit-to-main:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+          with:
+            fetch-depth: 0
+
+        - name: Verifica branch
+          run: |
+                if [ "${{ github.ref }}" != "refs/heads/development" ]; then
+                  echo "Erro: Commits para a main, só podem ser feitos a partir da branch development!"
+                  exit 1
+                fi
+
+        - name: Commit to main branch
+          run: |
+               git config user.name "${{ github.actor }}"
+               git config user.email "${{ github.actor }}@users.noreply.github.com"
+               git checkout main
+               git merge "${{ github.ref }}"
+               git push https://${{ secrets.MERGE_ACTION }}@github.com/v-Kaefer/GCS-2024-1-T1.git main
+            with: 
