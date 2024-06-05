@@ -1,0 +1,5 @@
+.github/workflows/registra-visitantes.yaml
+.github/workflows/tests.yaml
+.github/workflows/visitantes-cadastrados.yaml
+test/java/valida-funcs.yaml
+test/java/VisitanteTest.java
