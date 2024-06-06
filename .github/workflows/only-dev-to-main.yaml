@@ -4,6 +4,11 @@ on:
     push:
         branches:
             - development
+            - main
+    pull_request:
+      types: [opened, synchronize, reopened]
+      branches:
+        - main
 
 jobs:
     commit-to-main:
@@ -29,4 +34,4 @@ jobs:
                git checkout main
                git merge "${{ github.ref }}"
                git push https://${{ secrets.MERGE_ACTION }}@github.com/v-Kaefer/GCS-2024-1-T1.git main
-            with: 
+               
