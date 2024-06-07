@@ -1,5 +1,5 @@
 public interface MenorDeIdade {
-    String getResponsavel();
-    void setResponsavel(String responsavel);
+    Adulto getResponsavel(Visitante visitante);
+    Adulto buscaAdulto(String nomeDoResponsavel);
     int setTelefoneResponsavel(int telefone);
 }
