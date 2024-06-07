@@ -20,7 +20,7 @@ public class registraDados {
     }
     
     interface Registros {
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso);
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso);
         private boolean isIngressoValido(Ingresso ingresso) {};
         //public boolean getDataVisita(Ingresso dataAtual); // Alterar para dia Global
     }
@@ -31,7 +31,7 @@ public class registraDados {
     }
 
 
-    public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+    public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
         try {
             if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                 visitas.add(new Visita());
@@ -54,7 +54,7 @@ public class registraDados {
             this.atracao = "Roda Gigante";
         }
 
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
             try {
                 if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                     visitas.add(new Visita());
@@ -76,7 +76,7 @@ public class registraDados {
             this.atracao = "Barco Viking";
         }
 
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
             try {
                 if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                     visitas.add(new Visita());
@@ -98,7 +98,7 @@ public class registraDados {
             this.atracao = "Carro Choque";
         }
 
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
             try {
                 if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                     visitas.add(new Visita());
@@ -120,7 +120,7 @@ public class registraDados {
             this.atracao = "Trem Fantasma";
         }
 
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
             try {
                 if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                     visitas.add(new Visita());
@@ -142,7 +142,7 @@ public class registraDados {
             this.atracao = "Tiro ao Alvo";
         }
 
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
             try {
                 if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                     visitas.add(new Visita());
@@ -164,7 +164,7 @@ public class registraDados {
             this.atracao = "Boca do Palhaço";
         }
 
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso) {
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso) {
             try {
                 if (ingresso != null && isIngressoValido(ingresso)) { // ajustar array de visitas
                     visitas.add(new Visita());

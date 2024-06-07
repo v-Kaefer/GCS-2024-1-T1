@@ -7,11 +7,8 @@ Repositório destinado ao Trabalho 1 de Gerenciamento e Configuração de Softwa
 [cc-by-nc-nd-image]: https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png
 [cc-by-nc-nd-shield]: https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg
 
-## To-Do List Imediata
-- [ ] Remover Renovate Bot
 
-
-# Requisitos Gerais
+## Requisitos Gerais
 1. Deseja-se um sistema para gerenciar ingressos de um parque de diversões.
 2. O sistema deverá ser implementado em Java Console /ou/ Web Puro (apenas HTML+CSS+Javascript). Não utilizar frameworks ou outras dependências. A ideia é ter a base de código o mais simples possível. Cuidar para que todos os membros do time conheçam a(s) linguagem(s) escolhida(s).
 3. Não implementar um mecanismo de persistência de dados. **O sistema deverá manter dados apenas em memória durante a execução.**

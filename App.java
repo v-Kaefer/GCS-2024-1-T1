@@ -7,9 +7,22 @@ public class App {
     private HashMap<String, DiaRegistro> registros;
 
     public App() {
-        datas = new HashSet<>();
-        registros = new HashMap<>();
+        registroGeral = new HashSet<>();
+        initializeData();
     }
+
+    private void initializeData() {
+        // Initialize sample data for visitors, tickets, attractions, etc.
+    }
+
+    public Ingresso emitirIngresso(Visitante visitante) {
+        if (VisitanteAtributos.existemVisitantes() == false) {return null;}
+        Ingresso ingresso = new Ingresso(visitante, null, visitante.anoDeNascimento);
+        return ingresso;
+    }
+
+
+
 
     public void addRegistro(String data, Visitante visitante, Ingresso ingresso, Atracao atracao) {
         datas.add(data);
@@ -36,5 +49,23 @@ public class App {
     }
 
 
+    // GETTERS
+
+    public int getFaturamentoDia() {}
+    public int getFaturamentoMes() {}
+    public int getFaturamentoAno() {}
+
+    public HashSet<Visitas.visitas> getUsoDasAtracoes() {}
+
+
+    public void encerrarDia(String data) {
+        double totalFaturamento = 0.0;
+        for (RegistroGeral registro : registroGeral) {
+            if (registro.getData().equals(data)) {
+                totalFaturamento += registro.getFaturamento().getValor();
+            }
+        }
+        System.out.println("Faturamento do dia " + data + ": " + totalFaturamento);
+    }
 
 }

@@ -14,10 +14,10 @@ public abstract class Atracao {
     public class Visita {
         private String dataVisita;
         private Atracao atracao;
-        private atributosVisitante visitante;
+        private VisitanteAtributos visitante;
         private Ingresso ingresso;
 
-        public Visita(Ingresso ingresso, Atracao atracao, atributosVisitante visitante, String dataVisita) {
+        public Visita(Ingresso ingresso, Atracao atracao, VisitanteAtributos visitante, String dataVisita) {
             this.dataVisita = dataVisita;
             this.atracao = atracao;
             this.visitante = visitante;
@@ -33,7 +33,7 @@ public abstract class Atracao {
 
 
     interface Registros {
-        public boolean registraVisita(atributosVisitante visitante, Ingresso ingresso);
+        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso);
         public boolean getDataVisita(Ingresso dataAtual); // Alterar para dia Global
     }
 

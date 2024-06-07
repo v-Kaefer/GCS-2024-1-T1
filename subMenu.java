@@ -1,8 +1,21 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class subMenu {
+    private static String dataStart = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+    private static String dataAtual = dataStart;
+    private App app;
+
+    public subMenu(App app) {
+        this.app = app;
+    }
+
+    public static String getData() {
+        return dataAtual;
+    }
 
     // Funções "Globais"
     // Para controle geral do parque
@@ -12,10 +25,13 @@ public class subMenu {
      * 8) Duas funcionalidades a mais, à escolha do grupo.
     */
 
+    private HashSet<RegistroGeral> registroGeral = new HashSet<>();
+
+
     public final ArrayList<RegistrosDia> encerraDia() {
         ArrayList<RegistrosDia> resultadosDia = new ArrayList<>();
         System.out.println("Registrando resultados do dia " + getData());
-        resultadosDia.add(getData());
+        resultadosDia.add(new RegistrosDia(getData()));
 
         incrementaData();
         return resultadosDia;
@@ -34,30 +50,28 @@ public class subMenu {
     // ArraysLists : diaArray, atracoesArray, visitantesArray, ingressosArray
     // isIngressoValido()
 
-    private static String dataStart = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
-    private static String dataAtual = dataStart;
+
     //private static String dataControle = dataAtual;
 
-    public static String getData() {
-        return dataAtual;
-    }
 
-    private void incrementaData() { // Incrementa a data atual e finaliza o dia
+
+    private void incrementaData() { 
+        // Incrementa a data atual e finaliza o dia
         LocalDateTime incrementaData = LocalDateTime.parse(dataAtual, DateTimeFormatter.ofPattern("dd/MM/yyyy")).plusDays(1);
         dataAtual = incrementaData.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        Ingresso.encerraDia(1); // Reseta controleIngresso ao finalizar o dia
+        Ingresso.encerraDia(); // Reseta controleIngresso ao finalizar o dia
     }
 
     // Encerra dia
 
-    public void encerrarDia(String data) {
-        double totalFaturamento = 0.0;
-        for (RegistroGeral registro : registroGeral) {
-            if (registro.getData().equals(data)) {
-                totalFaturamento += registro.getFaturamento().getValor();
-            }
-        }
-        System.out.println("Faturamento do dia " + data + ": " + totalFaturamento);
+    public void encerrarDia() {
+        System.out.println("Encerrando dia " + getData());
+        app.encerrarDia(getData());
+        incrementaData();
+    }
+
+    public void consultarFaturamento() {
+        System.out.println("Faturamento total: " + app.getRegistroGeral().stream().mapToDouble(r -> r.getFaturamento().getValor()).sum());
     }
 }
 
