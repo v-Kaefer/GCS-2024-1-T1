@@ -1,11 +1,5 @@
 # Problemas:
 
-### Visitante.java
-
-adicionaNovoVisitante() {}
-
-Problema na hora de rodars os GETTERS, porque não consegue puxar de um Hash?
-
 # P/ Arrumar:
 
 ### RegistroGeral
