@@ -13,9 +13,10 @@ public class Ingresso {
     
 
 
-    public Ingresso(Visitante visitante, String data) {
+    public Ingresso(Visitante visitante, String data) throws Exception {
         this.visitante = visitante;
         this.ingresso = incrementaIngresso(controleIngresso); // Usa a funcao incrementaIngresso(), atribuind valor a ingresso
+        if (this.ingresso == -1) { throw new Exception("Erro: Limite de Ingressos diários atingido."); }
         this.validade = subMenu.getData();
         this.identificador = data + " - Ingresso: " + String.format("%03d", ingresso) + " - Valor: " + getValor(visitante.anoDeNascimento);
         this.valor = getValor(visitante.anoDeNascimento); // Por que eu adicionei isso? getValor pode ser chamado direto do identificador.
@@ -25,14 +26,12 @@ public class Ingresso {
         ingressosDoDia.put(ingresso, visitante);
     }
 
-    private Integer incrementaIngresso(int controleIngresso) {
+    private static int incrementaIngresso(int controleIngresso) {
         if (controleIngresso < 500) {
-            final int ingresso = controleIngresso;
-            controleIngresso++;
-            return ingresso;
+            return controleIngresso++;
         } else {
             System.out.println("Erro: Limite de Ingressos diários atingido.");
-            return null;
+            return -1;
         }
     }
 
