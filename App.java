@@ -1,4 +1,7 @@
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.HashMap;
 
 public class App {
@@ -8,17 +11,31 @@ public class App {
 
     public App() {
         registroGeral = new HashSet<>();
+        datas = new HashSet<>();
+        registros = new HashMap<>();
+        atracoes = new ArrayList<>();
         initializeData();
     }
 
     private void initializeData() {
-        // Initialize sample data for visitors, tickets, attractions, etc.
+        atracoes.add(new montanhaRussa());
+        atracoes.add(new rodaGigante());
+        atracoes.add(new barcoViking());
+        atracoes.add(new carroChoque());
+        atracoes.add(new tremFantasma());
     }
 
     public Ingresso emitirIngresso(Visitante visitante) {
-        if (VisitanteAtributos.existemVisitantes() == false) {return null;}
-        Ingresso ingresso = new Ingresso(visitante, null, visitante.anoDeNascimento);
-        return ingresso;
+        if (!Visitante.existemVisitantes()) {
+            return null;
+        }
+        try {
+            Ingresso ingresso = new Ingresso(visitante, subMenu.getData());
+            return ingresso;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
     }
 
 
@@ -42,21 +59,49 @@ public class App {
         return datas;
     }
 
-
-
-    public static void main (String args[]) {
-        
+    public Map<String, Integer> getUsoDasAtracoes(String data) {
+        Map<String, Integer> atracaoUso = new HashMap<>();
+        for (RegistroGeral registro : registroGeral) {
+            if (registro.getData().equals(data)) {
+                String atracaoNome = registro.getVisitas().getAtracao().getNomeAtracao();
+                atracaoUso.put(atracaoNome, atracaoUso.getOrDefault(atracaoNome, 0) + 1);
+            }
+        }
+        return atracaoUso.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (e1, e2) -> e1, LinkedHashMap::new));
     }
 
-
-    // GETTERS
-
-    public int getFaturamentoDia() {}
-    public int getFaturamentoMes() {}
-    public int getFaturamentoAno() {}
-
-    public HashSet<Visitas.visitas> getUsoDasAtracoes() {}
-
+    public int getFaturamentoDia(String data) {
+        int total = 0;
+        for (RegistroGeral registro : registroGeral) {
+            if (registro.getData().equals(data)) {
+                total += registro.getIngresso().getValor();
+            }
+        }
+        return total;
+    }
+    
+    public int getFaturamentoMes(String mes, String ano) {
+        int total = 0;
+        for (RegistroGeral registro : registroGeral) {
+            if (registro.getData().contains(mes + "/" + ano)) {
+                total += registro.getIngresso().getValor();
+            }
+        }
+        return total;
+    }
+    
+    public int getFaturamentoAno(String ano) {
+        int total = 0;
+        for (RegistroGeral registro : registroGeral) {
+            if (registro.getData().contains(ano)) {
+                total += registro.getIngresso().getValor();
+            }
+        }
+        return total;
+    }
 
     public void encerrarDia(String data) {
         double totalFaturamento = 0.0;
@@ -66,6 +111,11 @@ public class App {
             }
         }
         System.out.println("Faturamento do dia " + data + ": " + totalFaturamento);
+    }
+
+    public static void main(String[] args) {
+        App app = new App();
+        // Add code to interact with the app
     }
 
 }
