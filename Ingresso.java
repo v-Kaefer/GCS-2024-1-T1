@@ -1,5 +1,4 @@
 import java.util.HashMap;
-import java.util.HashSet;
 
 public class Ingresso {
     private Visitante visitante;
@@ -31,24 +30,13 @@ public class Ingresso {
             final int ingresso = controleIngresso;
             controleIngresso++;
             return ingresso;
-        } else if (controleIngresso == 500){
-            System.out.println("Erro: Limite de Ingressos diários atingido.");
-        }
-        // Retorna null. Ajustar?
-        return null; 
-    }
-
-    /*
-    private int incrementaIngresso() {
-        if (controleIngresso < 500) {
-            return controleIngresso++;
         } else {
-            throw new IllegalStateException("Erro: Limite de Ingressos diários atingido.");
+            System.out.println("Erro: Limite de Ingressos diários atingido.");
+            return null;
         }
     }
-    */
 
-    public boolean isVisitanteMenorDeIdade(int anoDeNascimento) {
+    public static boolean isVisitanteMenorDeIdade(int anoDeNascimento) {
         String dataAtual = subMenu.getData();
         //Tratamento de data. Pega o ano atual e subtrai pelo ano de nascimento do visitante.
         int anoAtual = Integer.parseInt(dataAtual.split("/")[2]);
@@ -107,8 +95,5 @@ public class Ingresso {
         // Reseta a variável de controle de ingressos.
         controleIngresso = 1;
     }
-
-
-
 }
 
