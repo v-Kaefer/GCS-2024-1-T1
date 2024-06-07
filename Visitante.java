@@ -66,6 +66,29 @@ public class Visitante{
 
 
     // GETTERS && SETTERS
+
+    public Visitante getVisitantePorNome(String nome) {
+        for (Visitante visitante : visitantes) {
+            if (visitante.getNome().contains(nome)) {
+                return visitante;
+            }
+        }
+        return null;
+    }
+
+    public Visitante getVisitantePorIngresso(int numeroIngresso) {
+        for (Visitante visitante : visitantes) {
+            if (visitante.getIngresso().getNumeroDoIngresso() == numeroIngresso) {
+                return visitante;
+            }
+        }
+        return null;
+    }
+
+    public HashSet<Visitante> getVisitantes() {
+        return visitantes;
+    }
+    
     public String getNome() {
         return nome;
     }
