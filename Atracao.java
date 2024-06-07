@@ -26,6 +26,14 @@ public abstract class Atracao {
         }
     }
 
+    public void registrarVisita(Visitante visitante, Atracao atracao) {
+        if (Ingresso.isIngressoValido(visitante.getIngresso())) {
+            atracao.registraVisita(visitante, visitante.getIngresso());
+        } else {
+            System.out.println("Visitante não possui ingresso válido.");
+        }
+    }
+
     public Atracao() {
         atracoes = new ArrayList<>();
         visitas = new ArrayList<>();
