@@ -7,16 +7,13 @@ public class Crianca extends Visitante implements Atividades, MenorDeIdade {
         this.telefone = telefone;
     }
     
-
-    @Override
-    public void visitar() {
+    public void visitar(String data, Ingresso ingresso, Visitante visitante) {
         System.out.println(nome + " está visitando.");
     }
 
-    @Override
-    public Integer setIngresso() {
-        this.ingresso = Ingresso.getNextIngresso();
-        return ingresso;
+    public Ingresso setIngresso() {
+        this.ingresso = Ingresso.setIngresso(this);
+        return this.ingresso;
     }
 
     @Override

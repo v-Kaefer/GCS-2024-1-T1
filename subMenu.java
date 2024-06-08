@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class subMenu {
@@ -16,16 +15,13 @@ public class subMenu {
         return dataAtual;
     }
 
-    private HashSet<RegistroGeral> registroGeral = new HashSet<>();
     private HashSet<RegistroGeral> resultadosDia = new HashSet<>();
-    private HashSet<RegistroGeral> RegistroGeral = new HashSet<>();
-
 
     // public RegistroGeral(String data, Visitante visitante, Ingresso ingresso, Visitas visitas, Faturamento faturamento) {
     public final HashSet<RegistroGeral> encerraDia() {
         System.out.println("Registrando resultados do dia " + getData());
-        // Ajustar
-        RegistroGeral registro = new RegistroGeral(getData(), null, null, null, null); // Adjust as needed
+        // Ajustar. Ainda estou perdido aqui. O registro em Hash é estranho...
+        RegistroGeral registro = new RegistroGeral(getData());
         resultadosDia.add(registro);
         incrementaData();
         return resultadosDia;
@@ -33,11 +29,10 @@ public class subMenu {
     
     private final HashSet<RegistroGeral> faturamentoDia() {
         System.out.println("Consultando faturamento do dia " + getData());
-        // Ajustar
         RegistroGeral registro = new RegistroGeral(getData());
-        registrosDia.add(registro);
+        resultadosDia.add(registro);
         incrementaData();
-        return registrosDia;
+        return resultadosDia;
     }
 
     private void incrementaData() { 
@@ -47,8 +42,7 @@ public class subMenu {
         Ingresso.encerraDia(); // Reseta controleIngresso ao finalizar o dia
     }
 
-    // Encerra dia
-
+    // Encerra dia e incrementa a data
     public void encerrarDia() {
         System.out.println("Encerrando dia " + getData());
         app.encerrarDia(getData());
@@ -56,7 +50,11 @@ public class subMenu {
     }
 
     public void consultarFaturamento() {
-        System.out.println("Faturamento total: " + app.getRegistroGeral().stream().mapToDouble(r -> r.getFaturamento().getValor()).sum());
+        double totalFaturamento = 0;
+        for (RegistroGeral registro : app.getRegistroGeral()) {
+            totalFaturamento += registro.getFaturamento();
+        }
+        System.out.println("Faturamento total: " + totalFaturamento);
     }
 }
 

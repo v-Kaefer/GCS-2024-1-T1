@@ -1,18 +1,14 @@
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class App {
     private HashSet<RegistroGeral> registroGeral;
     private HashSet<String> datas;
-    private HashSet<RegistroGeral> faturamentoDia;
-    private HashMap<String, HashSet<RegistroGeral>> registros;
+    //private HashSet<RegistroGeral> faturamentoDia;
+    private HashMap<String, RegistroGeral> registros;
     private ArrayList<Atracao> atracoes;
-    private HashSet<RegistroGeral> registroFinal;
+    //private HashSet<RegistroGeral> registroFinal;
 
 
     public App() {
@@ -20,10 +16,7 @@ public class App {
         datas = new HashSet<>();
         registros = new HashMap<>();
         atracoes = new ArrayList<>();
-        InserirDados.inserirDadosAoParque();
     }
-
-    
 
     public Ingresso emitirIngresso(Visitante visitante) {
         if (!Visitante.existemVisitantes()) {
@@ -31,6 +24,7 @@ public class App {
         }
         try {
             Ingresso ingresso = new Ingresso(visitante, subMenu.getData());
+            Ingresso.addIngresso(ingresso, visitante);
             return ingresso;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -39,13 +33,14 @@ public class App {
     }
 
     public void addRegistro(String data, Visitante visitante, Ingresso ingresso, Atracao atracao) {
-        RegistroGeral diaRegistro = registros.getOrDefault(data, new RegistroGeral(data));
+        RegistroGeral diaRegistro = registros.get(data);
+        if (diaRegistro == null) {
+            diaRegistro = new RegistroGeral(data);
+            registros.put(data, diaRegistro);
+        }
         diaRegistro.addVisitante(visitante);
         diaRegistro.addIngresso(ingresso);
         diaRegistro.addAtracao(atracao);
-        // Adiciona o registro do dia, com data, ao HashMap
-        registros.put(data, diaRegistro);
-        // Add ao RegistroGeral
         registroGeral.add(diaRegistro);
     }
 
@@ -64,10 +59,9 @@ public class App {
 
     public int getFaturamentoDia(String data) {
         int total = 0;
-        for (RegistroGeral registro : registroGeral) {
-            if (registro.getData().equals(data)) {
-                total += registro.getIngresso().getValor();
-            }
+        RegistroGeral registro = registros.get(data);
+        if (registro != null) {
+            total = registro.getFaturamento();
         }
         return total;
     }
@@ -75,8 +69,9 @@ public class App {
     public int getFaturamentoMes(String mes, String ano) {
         int total = 0;
         for (RegistroGeral registro : registroGeral) {
-            if (registro.getData().contains(mes + "/" + ano)) {
-                total += registro.getIngresso().getValor();
+            String[] dataParts = registro.getData().split("/");
+            if (dataParts[1].equals(mes) && dataParts[2].equals(ano)) {
+                total += registro.getFaturamento();
             }
         }
         return total;
@@ -85,8 +80,8 @@ public class App {
     public int getFaturamentoAno(String ano) {
         int total = 0;
         for (RegistroGeral registro : registroGeral) {
-            if (registro.getData().contains(ano)) {
-                total += registro.getIngresso().getValor();
+            if (registro.getData().endsWith(ano)) {
+                total += registro.getFaturamento();
             }
         }
         return total;
@@ -96,10 +91,14 @@ public class App {
         int totalFaturamento = 0;
         for (RegistroGeral registro : registroGeral) {
             if (registro.getData().equals(data)) {
-                totalFaturamento += registro.getFaturamento().getPreco();
+                totalFaturamento += registro.getFaturamento();
             }
         }
         System.out.println("Faturamento do dia " + data + ": " + totalFaturamento);
+    }
+
+    public HashSet<RegistroGeral> getRegistroGeral() {
+        return registroGeral;
     }
 
     public static void main(String[] args) {

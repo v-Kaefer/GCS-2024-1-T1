@@ -55,7 +55,6 @@ public class Visitante {
     }
 
     public boolean verificaExistencia(Visitante novoVisitante) {
-        // Verificar
         return visitantes.contains(novoVisitante);
     }
 
@@ -77,7 +76,7 @@ public class Visitante {
 
     public Visitante getVisitantePorIngresso(int numeroIngresso) {
         for (Visitante visitante : visitantes) {
-            if (visitante.getIngresso().getNumeroDoIngresso() == numeroIngresso) {
+            if (visitante.getIngresso() != null && visitante.getIngresso().getNumeroDoIngresso() == numeroIngresso) {
                 return visitante;
             }
         }

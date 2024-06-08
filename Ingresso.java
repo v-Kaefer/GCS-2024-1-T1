@@ -39,9 +39,8 @@ public class Ingresso {
         String dataAtual = subMenu.getData();
         //Tratamento de data. Pega o ano atual e subtrai pelo ano de nascimento do visitante.
         int anoAtual = Integer.parseInt(dataAtual.split("/")[2]);
-        int idade = anoAtual - anoDeNascimento;
-        // Operador ternário para verificar se o visitante é menor de idade. TRUE, FALSE.
-        return idade <= 12 ? true : false;
+        // Operador ternário para verificar se o visitante é menor de idade.
+        return (anoAtual - anoDeNascimento) <= 12 ? true : false;
     }
 
     // Verifica se o ingresso existe e se é válido.
@@ -52,11 +51,11 @@ public class Ingresso {
 
     // GETTERS & SETTERS
 
-    public static Integer setIngresso(Visitante visitante) {
+    public static Ingresso setIngresso(Visitante visitante) {
         try {
             Ingresso ingresso = new Ingresso (visitante, subMenu.getData());
             visitante.setIngresso(ingresso);
-            return ingresso.getNumeroDoIngresso();
+            return ingresso;
         } catch (Exception e) {
             e = new Exception("Erro: Limite de Ingressos diários atingido.");
             System.out.println("Erro: " + e);
@@ -73,16 +72,6 @@ public class Ingresso {
         //String i = identificador.split("-")[-2].trim();
         //int identificador = Integer.parseInt(i);
         return identificador;
-    }
-
-    public Integer getNextIngresso() {
-        try {
-            incrementaIngresso(controleIngresso);
-        } catch (Exception e) {
-            e = new Exception("Erro: Limite de Ingressos diários atingido.");
-            System.out.println("Erro: " + e);
-        }
-        return ingresso;
     }
 
     public int getValor(int anoDeNascimento) {
