@@ -1,35 +1,56 @@
 name: Commits para a main somente a partir da development
 
 on:
-    push:
-        branches:
-            - main
-    pull_request:
-      types: [opened, synchronize, reopened]
-      branches:
-        - main
+
+  push:
+    branches:
+      - development
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
 
 jobs:
-    commit-to-main:
-        runs-on: ubuntu-latest
+  commit-to-main:
+    runs-on: ubuntu-latest
 
-        steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
-          with:
-            fetch-depth: 0
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-        - name: Verifica branch
-          run: |
-                if [ "${{ github.ref }}" != "refs/heads/development" ]; then
-                  echo "Erro: Commits para a main, só podem ser feitos a partir da branch development!"
-                  exit 1
-                fi
+      - name: Verifica branch
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/development" ]; then
+            echo "Erro: Commits para a main, só podem ser feitos a partir da branch development!"
+            echo "::error title=Erro::Commits para a main, só podem ser feitos a partir da branch development!"
+            exit 1
+          fi
 
-        - name: Commit to main branch
-          run: |
-               git config user.name "${{ github.actor }}"
-               git config user.email "${{ github.actor }}@users.noreply.github.com"
-               git checkout main
-               git merge "${{ github.ref }}"
-               git push https://${{ secrets.MERGE_ACTION }}@github.com/v-Kaefer/GCS-2024-1-T1.git main
+
+      - name: Commit to main branch
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout main
+          git merge "${{ github.ref }}"
+          git push https://${{ secrets.MERGE_ACTION }}@github.com/v-Kaefer/GCS-2024-1-T1.git main
+
+      - name: Comment on pull request
+        uses: actions/github-script@v4
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const message = "Erro: Commits para a main, só podem ser feitos a partir da branch development!";
+            const context = github.context;
+            const { owner, repo, number } = context.issue;
+            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
+            octokit.issues.createComment({
+              owner,
+              repo,
+              issue_number: number,
+              body: message
+            });
