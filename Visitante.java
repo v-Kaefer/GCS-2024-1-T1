@@ -1,15 +1,14 @@
 import java.util.HashSet;
 import java.util.Scanner;
 
-public class Visitante{
+public class Visitante {
     protected String nome;
     protected int anoDeNascimento;
     protected int telefone;
     protected Ingresso ingresso = null;
-    protected HashSet<Visitante> visitantes = new HashSet<Visitante>();
+    protected static HashSet<Visitante> visitantes = new HashSet<Visitante>();
     // As variáveis de Visitante são protegidas para que possam ser acessadas por classes filhas
     Scanner sc = new Scanner(System.in);
-    
 
     public Visitante(String nome, int anoDeNascimento) {
         this.nome = nome;
@@ -60,7 +59,7 @@ public class Visitante{
         return visitantes.contains(novoVisitante);
     }
 
-    public boolean existemVisitantes() {
+    public static boolean existemVisitantes() {
         return !visitantes.isEmpty();
     }
 

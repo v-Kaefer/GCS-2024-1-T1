@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 //O parque de diversões precisa armazenar dados de suas atrações e de seus visitantes.
@@ -8,69 +9,64 @@ import java.util.List;
 public abstract class Atracao {
     protected String atracao;
     protected List<Visita> visitas;
-    protected ArrayList<Atracao> atracoes;
-    private ArrayList<Visitante> visitantes;
+    protected HashMap<Atracao, List<Visita>> totalAtracaoVisitas;
+    protected HashMap<Visitante, List<Visita>> totalVisitanteVisitas;
+    public static HashMap<String, Atracao> atracoes = new HashMap<>();
 
-    public class Visita {
-        private String dataVisita;
-        private Atracao atracao;
-        private VisitanteAtributos visitante;
-        private Ingresso ingresso;
-
-        public Visita(Ingresso ingresso, Atracao atracao, VisitanteAtributos visitante, String dataVisita) {
-            this.dataVisita = dataVisita;
-            this.atracao = atracao;
-            this.visitante = visitante;
-            this.ingresso = ingresso;
-            
-        }
-    }
-
-    public void registrarVisita(Visitante visitante, Atracao atracao) {
-        if (Ingresso.isIngressoValido(visitante.getIngresso())) {
-            atracao.registraVisita(visitante, visitante.getIngresso());
-        } else {
-            System.out.println("Visitante não possui ingresso válido.");
-        }
-    }
-
-    public Atracao() {
-        atracoes = new ArrayList<>();
-        visitas = new ArrayList<>();
-    }
-
-
-    interface Registros {
-        public boolean registraVisita(VisitanteAtributos visitante, Ingresso ingresso);
-        public boolean getDataVisita(Ingresso dataAtual); // Alterar para dia Global
-    }
-
-    private boolean isValido(Visitante visitante) {
-        for (Ingresso ingresso : Ingresso.ingressos) {
-            if (visitante.ingresso.getVisitante() == visitante && ingresso != null) {
-                return true;
-            }
-        }
-        return false;
+    public Atracao(String atracao) {
+        this.atracao = atracao;
+        this.visitas = new ArrayList<>();
     }
 
     public String getNomeAtracao() {
         return atracao;
     }
 
-
-    /*
-    public boolean registraVisita(herancaVisitante visitante, Ingresso ingresso) {
-        if (ingresso != null && ingresso.getVisitante() == visitante.getNome()) {
-            return true;
-        } else if (ingresso != null && ingresso.isValido()) {
-            this.visitante.add(visitante);
-            ingresso.registraVisita(this);
-            return true;
-        } else {
-            System.out.println("Visitante não possui ingresso válido.");
-            return false;
+    public void getTotalVisitasDoVisitante(Visitante visitante) {
+        for (Visita visita : visitas) {
+            System.out.println("Visitante: " + visita.getVisitante().getNome() + " visitou a atração " + atracao + " no dia " + visita.getDataVisita());
         }
     }
-    */
+
+    public void getTotalVisitasDaAtracao(Atracao atracao) {
+        for (Visita totalAtracaoVisitas : visitas) {
+            System.out.println("A atração " + atracao + " foi visitada por " + visita.getVisitante().getNome() + " no dia " + visita.getDataVisita());
+        }
+    }
+
+    public void visitar(String data, Ingresso ingresso, Visitante visitante) {
+        Visita visita = new Visita(ingresso, this, visitante, data);
+        visitas.add(visita);
+        System.out.println("Visita registrada em " + atracao + " no dia " + data);
+    }
+
+    public class Visita {
+        private String dataVisita;
+        private Atracao atracao;
+        private Visitante visitante;
+        private Ingresso ingresso;
+
+        public Visita(Ingresso ingresso, Atracao atracao, Visitante visitante, String dataVisita) {
+            this.dataVisita = dataVisita;
+            this.atracao = atracao;
+            this.visitante = visitante;
+            this.ingresso = ingresso;
+        }
+
+        public String getDataVisita() {
+            return dataVisita;
+        }
+
+        public Atracao getAtracao() {
+            return atracao;
+        }
+
+        public Visitante getVisitante() {
+            return visitante;
+        }
+
+        public Ingresso getIngresso() {
+            return ingresso;
+        }
+    }    
 }

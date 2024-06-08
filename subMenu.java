@@ -1,6 +1,5 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -17,43 +16,29 @@ public class subMenu {
         return dataAtual;
     }
 
-    // Funções "Globais"
-    // Para controle geral do parque
-    /*
-     * 6) O sistema deverá permitir ao operador consultar o faturamento de um determinado mês/ano, somando os valores dos ingressos dos respectivos dias.
-     * 7) O sistema deverá permitir ao operador consultar, para uma determinada data, todas as atrações do parque e a quantidade de visitantes que utilizou cada uma delas, ordenadas da mais visitada à menos visitada.
-     * 8) Duas funcionalidades a mais, à escolha do grupo.
-    */
-
     private HashSet<RegistroGeral> registroGeral = new HashSet<>();
+    private HashSet<RegistroGeral> resultadosDia = new HashSet<>();
+    private HashSet<RegistroGeral> RegistroGeral = new HashSet<>();
 
 
-    public final ArrayList<RegistrosDia> encerraDia() {
-        ArrayList<RegistrosDia> resultadosDia = new ArrayList<>();
+    // public RegistroGeral(String data, Visitante visitante, Ingresso ingresso, Visitas visitas, Faturamento faturamento) {
+    public final HashSet<RegistroGeral> encerraDia() {
         System.out.println("Registrando resultados do dia " + getData());
-        resultadosDia.add(new RegistrosDia(getData()));
-
+        // Ajustar
+        RegistroGeral registro = new RegistroGeral(getData(), null, null, null, null); // Adjust as needed
+        resultadosDia.add(registro);
         incrementaData();
         return resultadosDia;
     }
     
-    private final ArrayList<registrosDia> faturamentoDia() {
-        ArrayList<registrosDia> registrosDia = new ArrayList<>();
+    private final HashSet<RegistroGeral> faturamentoDia() {
         System.out.println("Consultando faturamento do dia " + getData());
-        registrosDia.add(getData());
-
+        // Ajustar
+        RegistroGeral registro = new RegistroGeral(getData());
+        registrosDia.add(registro);
         incrementaData();
-        return faturamento;
+        return registrosDia;
     }
-
-    // encerraDiaResultados()
-    // ArraysLists : diaArray, atracoesArray, visitantesArray, ingressosArray
-    // isIngressoValido()
-
-
-    //private static String dataControle = dataAtual;
-
-
 
     private void incrementaData() { 
         // Incrementa a data atual e finaliza o dia

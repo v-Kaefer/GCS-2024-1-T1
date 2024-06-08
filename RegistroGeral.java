@@ -1,35 +1,50 @@
+import java.util.HashSet;
+
 public class RegistroGeral {
     private String data;
-    private Visitante visitante;
-    private Ingresso ingresso;
-    private Visitas visitas;
-    private Faturamento faturamento;
+    private HashSet<Visitante> visitantes;
+    private HashSet<Ingresso> ingressos;
+    private HashSet<Atracao> atracoes;
 
-    public RegistroGeral(String data, Visitante visitante, Ingresso ingresso, Visitas visitas, Faturamento faturamento) {
+    public RegistroGeral(String data) {
         this.data = data;
-        this.visitante = visitante;
-        this.ingresso = ingresso;
-        this.visitas = visitas;
-        this.faturamento = faturamento;
+        this.visitantes = new HashSet<>();
+        this.ingressos = new HashSet<>();
+        this.atracoes = new HashSet<>();
+    }
+    public void addVisitante(Visitante visitante) {
+        visitantes.add(visitante);
+    }
+
+    public void addIngresso(Ingresso ingresso) {
+        ingressos.add(ingresso);
+    }
+
+    public void addAtracao(Atracao atracao) {
+        atracoes.add(atracao);
     }
 
     public String getData() {
         return data;
     }
 
-    public Visitante getVisitante() {
-        return visitante;
+    public HashSet<Visitante> getVisitantes() {
+        return visitantes;
     }
 
-    public Ingresso getIngresso() {
-        return ingresso;
+    public HashSet<Ingresso> getIngressos() {
+        return ingressos;
     }
 
-    public Visitas getVisitas() {
-        return visitas;
+    public HashSet<Atracao> getAtracoes() {
+        return atracoes;
     }
-
-    public Faturamento getFaturamento() {
+    public int getFaturamento() {
+        int faturamento = 0;
+        for (Ingresso ingresso : ingressos) {
+            faturamento += ingresso.getPreco();
+        }
         return faturamento;
     }
+
 }

@@ -50,7 +50,19 @@ public class Ingresso {
     }
 
 
-    // GETTERS
+    // GETTERS & SETTERS
+
+    public static Integer setIngresso(Visitante visitante) {
+        try {
+            Ingresso ingresso = new Ingresso (visitante, subMenu.getData());
+            visitante.setIngresso(ingresso);
+            return ingresso.getNumeroDoIngresso();
+        } catch (Exception e) {
+            e = new Exception("Erro: Limite de Ingressos diários atingido.");
+            System.out.println("Erro: " + e);
+            return null;
+        }
+    }
 
     public int getNumeroDoIngresso() {
         // Apenas o NÚMERO do ingresso
@@ -76,6 +88,10 @@ public class Ingresso {
     public int getValor(int anoDeNascimento) {
         // Operador ternário para verificar se o visitante é menor de idade e retornar valor. TRUE = 80, FALSE = 100.
         return isVisitanteMenorDeIdade(anoDeNascimento) ? 80 : 100;
+    }
+
+    public int getPreco() {
+        return valor;
     }
 
     public String getIngressoData() {

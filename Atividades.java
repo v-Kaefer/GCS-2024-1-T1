@@ -1,4 +1,3 @@
 public interface Atividades {
-    void visitar();
-    Integer setIngresso();
+    void visitar(String data, Ingresso ingresso, Visitante visitante);
 }
