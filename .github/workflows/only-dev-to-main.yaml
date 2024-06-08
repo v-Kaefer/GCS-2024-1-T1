@@ -1,6 +1,7 @@
 name: Commits para a main somente a partir da development
 
 on:
+
   push:
     branches:
       - development
@@ -9,6 +10,7 @@ on:
     types: [opened, synchronize, reopened]
     branches:
       - main
+
 
 jobs:
   commit-to-main:
@@ -27,6 +29,7 @@ jobs:
             echo "::error title=Erro::Commits para a main, só podem ser feitos a partir da branch development!"
             exit 1
           fi
+
 
       - name: Commit to main branch
         run: |
