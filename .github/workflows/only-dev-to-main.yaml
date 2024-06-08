@@ -3,7 +3,6 @@ name: Commits para a main somente a partir da development
 on:
   push:
     branches:
-      - development
       - main
   pull_request:
     types: [opened, synchronize, reopened]
@@ -12,7 +11,7 @@ on:
 
 jobs:
   commit-to-main:
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/base'
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +22,7 @@ jobs:
 
       - name: Verifica branch
         run: |
-          if [ "${{ github.ref }}" == "refs/heads/development" ]; then
+          if [ "${{ github.ref }}" != "refs/heads/development" ]; then
             echo "Erro: Commits para a main, só podem ser feitos a partir da branch development!"
             echo "::error title=Erro::Commits para a main, só podem ser feitos a partir da branch development!"
             exit 1
