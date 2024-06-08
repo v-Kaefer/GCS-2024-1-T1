@@ -7,9 +7,6 @@ Repositório destinado ao Trabalho 1 de Gerenciamento e Configuração de Softwa
 [cc-by-nc-nd-image]: https://licensebuttons.net/l/by-nc-nd/4.0/88x31.png
 [cc-by-nc-nd-shield]: https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg
 
-## To-Do List Imediata
-- [ ] Remover Renovate Bot
-
 
 # Requisitos Gerais
 1. Deseja-se um sistema para gerenciar ingressos de um parque de diversões.
