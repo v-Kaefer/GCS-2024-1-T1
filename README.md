@@ -51,5 +51,3 @@ Repositório destinado ao Trabalho 1 de Gerenciamento e Configuração de Softwa
 
 - Um visitante deve ser registrado com nome e sobrenome.
    - .github/workflows/visitantes-cadastrados.yaml
-- 
-
